@@ -1,9 +1,9 @@
 # OOP Game - C# Windows Forms Educational Project
 
-## ?? Project Overview
+## Project Overview
 This project demonstrates Object-Oriented Programming (OOP) concepts using C# Windows Forms with animated game characters. It's designed for teaching inheritance, polymorphism, encapsulation, and abstraction.
 
-## ?? Learning Progression
+## Learning Progression
 
 ### Lab01 - Code Duplication Problem
 - **Shinobi.cs**: Complete character class with animation system
@@ -16,7 +16,7 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 - **Lab03**: Polymorphism and virtual methods
 - **Lab04**: Interfaces for special abilities
 
-## ?? Features
+## Features
 
 ### Character System
 - **Smooth 60 FPS animations** with sprite sheets
@@ -31,7 +31,7 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 - **A**: Attack (tap)
 - **J**: Jump (tap)
 - **Space**: Reset position
-- **C**: Switch between Shinobi ? Samurai
+- **C**: Switch between Shinobi and Samurai
 
 ### Technical Features
 - **Double buffering** for smooth rendering
@@ -39,18 +39,18 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 - **Resource management** with proper disposal
 - **Sprite sheet animation** with frame calculation
 
-## ?? Assets
+## Assets
 - **Shinobi sprites**: Ninja character animations
 - **Samurai sprites**: Warrior character animations
 - **Frame-based animation**: 6-12 frames per action
 
-## ?? Technical Stack
+## Technical Stack
 - **.NET Framework 4.8.1**
 - **C# 7.3**
 - **Windows Forms**
 - **GDI+ Graphics**
 
-## ?? OOP Concepts Demonstrated
+## OOP Concepts Demonstrated
 
 ### Lab01 - Encapsulation & Code Duplication
 - **Encapsulation**: Private fields, public properties
@@ -65,14 +65,14 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 3. **Prepare for inheritance**: Students will want a better solution
 4. **Visual feedback**: Immediate results encourage learning
 
-## ?? Getting Started
-1. Open `Lab01.sln` in Visual Studio
+## Getting Started
+1. Open `OOP_Game.sln` in Visual Studio
 2. Build and run the project
 3. Use controls to interact with characters
 4. Press **C** to switch between characters and see identical behavior
 5. Examine code to see the duplication problem
 
-## ?? Educational Value
+## Educational Value
 This project makes OOP concepts **tangible and visual**:
 - Students see immediate results of their code
 - Animation provides engaging feedback
