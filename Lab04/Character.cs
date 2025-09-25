@@ -114,7 +114,7 @@ namespace Lab04
                 case "Run": return 8;
                 case "Attack": return 5;
                 case "Jump": return 12;
-                case "Shield": return 4;
+                case "Shield": return 2;
                 default: return 1;
             }
         }

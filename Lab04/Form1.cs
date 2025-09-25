@@ -12,11 +12,8 @@ namespace Lab04
 {
     public partial class Form1 : Form
     {
-        // Abstract class polymorphism - Character reference can hold any derived type
-        private Character currentCharacter;
-        private Shinobi ninja;
-        private Samurai samurai;
-        private Fighter fighter;
+        // Polymorphism demonstration - single Character reference
+        private Character character;
         private Timer animationTimer;
         private int lastX, lastY; // Previous position for invalidation
         private int characterIndex = 0; // 0: ninja, 1: samurai, 2: fighter
@@ -36,13 +33,8 @@ namespace Lab04
                          ControlStyles.ResizeRedraw, true);
             this.UpdateStyles();
 
-            // Create character objects - abstract class polymorphism!
-            ninja = new Shinobi("Shadow Ninja", 100, 200);        // No shield ability
-            samurai = new Samurai("Blade Samurai", 100, 200);     // Has shield ability (IShieldable)
-            fighter = new Fighter("Swift Fighter", 100, 200);     // Has shield + mana (IShieldable + custom properties)
-            
-            // Start with ninja (no shield)
-            currentCharacter = ninja;
+            // Polymorphism in action! Character reference can hold any derived type
+            CreateCharacter();
             UpdateLastPosition();
 
             // Setup animation timer - 60 FPS
@@ -50,6 +42,26 @@ namespace Lab04
 
             // Set initial title
             UpdateTitle();
+        }
+
+        private void CreateCharacter()
+        {
+            // Clean up previous character
+            character?.Dispose();
+
+            // Polymorphism demonstration - same reference type, different objects!
+            switch (characterIndex)
+            {
+                case 0:
+                    character = new Shinobi("Shadow Ninja", 100, 200);      // No interfaces
+                    break;
+                case 1:
+                    character = new Samurai("Blade Samurai", 100, 200);     // Implements IShieldable
+                    break;
+                case 2:
+                    character = new Fighter("Swift Fighter", 100, 200);     // Implements IShieldable + has mana
+                    break;
+            }
         }
 
         private void SetupAnimationTimer()
@@ -62,8 +74,8 @@ namespace Lab04
 
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
-            // Abstract class polymorphism: same method call, implemented differently by each class
-            currentCharacter.UpdateAnimation();
+            // Polymorphism: same method call, different implementations based on actual object type
+            character.UpdateAnimation();
             
             // Invalidate old and new regions for efficient redraw
             InvalidateCharacterRegions();
@@ -73,8 +85,8 @@ namespace Lab04
 
         private void UpdateLastPosition()
         {
-            lastX = currentCharacter.X;
-            lastY = currentCharacter.Y;
+            lastX = character.X;
+            lastY = character.Y;
         }
 
         private void InvalidateCharacterRegions()
@@ -83,7 +95,7 @@ namespace Lab04
             const int size = 148;
             
             Rectangle oldRect = new Rectangle(lastX - margin, lastY - margin, size, size);
-            Rectangle newRect = new Rectangle(currentCharacter.X - margin, currentCharacter.Y - margin, size, size);
+            Rectangle newRect = new Rectangle(character.X - margin, character.Y - margin, size, size);
             
             this.Invalidate(oldRect);
             this.Invalidate(newRect);
@@ -103,12 +115,12 @@ namespace Lab04
 
         private void DrawCharacter(Graphics graphics)
         {
-            // Abstract class polymorphism: same method call works for all derived types
-            var sprite = currentCharacter.GetCurrentSprite();
+            // Polymorphism: same method call works for all derived types
+            var sprite = character.GetCurrentSprite();
             if (sprite != null)
             {
-                var sourceRect = currentCharacter.GetCurrentFrameRect();
-                var destRect = new Rectangle(currentCharacter.X, currentCharacter.Y, 128, 128);
+                var sourceRect = character.GetCurrentFrameRect();
+                var destRect = new Rectangle(character.X, character.Y, 128, 128);
                 
                 // Use nearest neighbor for crisp pixel art
                 graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -143,35 +155,35 @@ namespace Lab04
                     return;
             }
 
-            // Handle actions - abstract class polymorphism in action!
+            // Handle actions - polymorphism in action!
             HandleInput(e.KeyCode);
             UpdateTitle();
         }
 
         private void SwitchCharacter()
         {
-            // Cycle through characters
+            // Cycle through character types
             characterIndex = (characterIndex + 1) % 3;
             
-            switch (characterIndex)
-            {
-                case 0: currentCharacter = ninja; break;      // Shinobi: no interfaces
-                case 1: currentCharacter = samurai; break;    // Samurai: implements IShieldable
-                case 2: currentCharacter = fighter; break;    // Fighter: implements IShieldable + has mana
-            }
+            // Store current position
+            int currentX = character.X;
+            int currentY = character.Y;
             
-            // Sync positions when switching
-            currentCharacter.X = lastX;
-            currentCharacter.Y = lastY;
-            currentCharacter.SetIdle(); // Abstract method call
+            // Polymorphism demonstration: Create new instance of different type
+            CreateCharacter();
+            
+            // Restore position for new character
+            character.X = currentX;
+            character.Y = currentY;
+            character.SetIdle(); // Polymorphic method call
             
             this.Invalidate(); // Full repaint when switching
         }
 
         private void ToggleShield()
         {
-            // Interface polymorphism - check if current character implements IShieldable
-            if (currentCharacter is IShieldable shieldableChar)
+            // Interface polymorphism - runtime type checking
+            if (character is IShieldable shieldableChar)
             {
                 if (shieldableChar.IsShielding)
                 {
@@ -182,36 +194,38 @@ namespace Lab04
                     shieldableChar.ActivateShield();
                 }
             }
+            // Note: Shinobi doesn't implement IShieldable, so shield key does nothing
         }
 
         private void RestoreMana()
         {
-            // Type checking - only Fighter has mana system
-            if (currentCharacter is Fighter fighterChar)
+            // Type-specific functionality - runtime type checking
+            if (character is Fighter fighterChar)
             {
                 fighterChar.RestoreMana();
             }
+            // Note: Only Fighter has mana system
         }
 
         private void HandleInput(Keys keyCode)
         {
-            // Abstract class polymorphism! Same method calls, different implementations!
+            // Polymorphism in action! Same method calls, different behaviors based on actual object type
             switch (keyCode)
             {
                 case Keys.I: 
-                    currentCharacter.SetIdle(); // Abstract method - implemented by each class
+                    character.SetIdle(); // Abstract method - each class implements differently
                     break;
                 case Keys.W: 
-                    currentCharacter.Walk();    // Abstract method - different speeds & behaviors!
+                    character.Walk();    // Virtual method - different speeds based on GetWalkSpeed()!
                     break;
                 case Keys.R: 
-                    currentCharacter.Run();     // Abstract method - different speeds & behaviors!
+                    character.Run();     // Virtual method - different speeds based on GetRunSpeed()!
                     break;
                 case Keys.A: 
-                    currentCharacter.Attack();  // Virtual method - different power & effects!
+                    character.Attack();  // Virtual method - different behaviors per class!
                     break;
                 case Keys.J: 
-                    currentCharacter.Jump();    // Virtual method - different distances & effects!
+                    character.Jump();    // Virtual method - different distances based on GetJumpDistance()!
                     break;
                 case Keys.Space: 
                     ResetCharacter(); 
@@ -228,16 +242,16 @@ namespace Lab04
             {
                 case Keys.W: // Walk
                 case Keys.R: // Run
-                    if (!currentCharacter.IsInOneShotAnimation())
+                    if (!character.IsInOneShotAnimation())
                     {
-                        // Check if character is shielding
-                        if (currentCharacter is IShieldable shieldable && shieldable.IsShielding)
+                        // Check if character is shielding (interface polymorphism)
+                        if (character is IShieldable shieldable && shieldable.IsShielding)
                         {
                             // Don't set idle if shielding - let shield continue
                         }
                         else
                         {
-                            currentCharacter.SetIdle(); // Abstract method call
+                            character.SetIdle(); // Polymorphic method call
                         }
                     }
                     break;
@@ -248,18 +262,18 @@ namespace Lab04
 
         private void ResetCharacter()
         {
-            currentCharacter.X = 100;
-            currentCharacter.Y = 200;
-            currentCharacter.SetIdle(); // Abstract method call
+            character.X = 100;
+            character.Y = 200;
+            character.SetIdle(); // Polymorphic method call
             
-            // Interface-specific resets
-            if (currentCharacter is IShieldable shieldableChar)
+            // Interface-specific resets (runtime type checking)
+            if (character is IShieldable shieldableChar)
             {
                 shieldableChar.DeactivateShield(); // Interface method
             }
             
-            // Type-specific resets
-            if (currentCharacter is Fighter fighterChar)
+            // Type-specific resets (runtime type checking)
+            if (character is Fighter fighterChar)
             {
                 fighterChar.RestoreMana(100); // Full restore
             }
@@ -270,11 +284,13 @@ namespace Lab04
 
         private void UpdateTitle()
         {
-            string characterType = currentCharacter.GetCharacterType(); // Abstract method
+            // Polymorphism: GetCharacterType() returns different values based on actual object type
+            string characterType = character.GetCharacterType(); // Abstract method implementation
+            string actualType = character.GetType().Name; // Runtime type information
             string shieldInfo = "";
             
             // Interface polymorphism - check shield status
-            if (currentCharacter is IShieldable shieldable)
+            if (character is IShieldable shieldable)
             {
                 shieldInfo = shieldable.IsShielding ? " [SHIELDING]" : " [Shield Available]";
             }
@@ -283,12 +299,12 @@ namespace Lab04
                 shieldInfo = " [No Shield]";
             }
             
-            this.Text = $"Lab04 - Abstract Classes & Interfaces: {characterType}{shieldInfo}";
+            this.Text = $"Lab04 - Polymorphism Demo: Character reference -> {actualType} ({characterType}){shieldInfo}";
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Cleanup resources - abstract class method
+            // Cleanup resources - polymorphic method call
             CleanupResources();
         }
 
@@ -297,10 +313,8 @@ namespace Lab04
             animationTimer?.Stop();
             animationTimer?.Dispose();
             
-            // Abstract class polymorphism in cleanup
-            ninja?.Dispose();
-            samurai?.Dispose();
-            fighter?.Dispose();
+            // Polymorphic cleanup
+            character?.Dispose();
         }
     }
 }
