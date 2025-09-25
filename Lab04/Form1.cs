@@ -16,7 +16,7 @@ namespace Lab04
         private Character character;
         private Timer animationTimer;
         private int lastX, lastY; // Previous position for invalidation
-        private int characterIndex = 0; // 0: ninja, 1: samurai, 2: fighter
+        private int characterIndex = 1; // 0: ninja, 1: samurai, 2: fighter
 
         public Form1()
         {
