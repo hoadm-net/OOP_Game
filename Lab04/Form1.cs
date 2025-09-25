@@ -182,10 +182,6 @@ namespace Lab04
                     shieldableChar.ActivateShield();
                 }
             }
-            else
-            {
-                Console.WriteLine($"{currentCharacter.Name} ({currentCharacter.GetCharacterType()}) does not have shield ability!");
-            }
         }
 
         private void RestoreMana()
@@ -194,10 +190,6 @@ namespace Lab04
             if (currentCharacter is Fighter fighterChar)
             {
                 fighterChar.RestoreMana();
-            }
-            else
-            {
-                Console.WriteLine($"{currentCharacter.Name} doesn't use mana!");
             }
         }
 

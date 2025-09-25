@@ -23,14 +23,12 @@ namespace Lab04
         public override void Attack()
         {
             base.Attack(); // Call abstract class implementation
-            Console.WriteLine($"?? {Name} performs a swift ninja strike!");
         }
 
         // Override Jump for Shinobi-specific behavior
         public override void Jump()
         {
             base.Jump(); // Call abstract class implementation
-            Console.WriteLine($"?? {Name} makes a nimble ninja leap!");
         }
     }
 }

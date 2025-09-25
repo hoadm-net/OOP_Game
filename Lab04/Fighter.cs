@@ -40,11 +40,6 @@ namespace Lab04
                 IsShielding = true;
                 Mana -= 15; // Shield costs mana for Fighter
                 SetAction("Shield", false); // Shield is a loop animation
-                Console.WriteLine($"? {Name} activates magical fighter shield! (Mana: {Mana}/{MaxMana})");
-            }
-            else
-            {
-                Console.WriteLine($"? {Name} cannot use shield - insufficient mana or energy!");
             }
         }
 
@@ -54,7 +49,6 @@ namespace Lab04
             {
                 IsShielding = false;
                 SetIdle();
-                Console.WriteLine($"?? {Name} deactivates magical shield!");
             }
         }
 
@@ -67,7 +61,6 @@ namespace Lab04
         public void RestoreMana(int amount = 25)
         {
             Mana = Math.Min(Mana + amount, MaxMana);
-            Console.WriteLine($"? {Name} restores mana! Current: {Mana}/{MaxMana}");
         }
 
         // Override methods for Fighter-specific behavior with mana system
@@ -82,12 +75,10 @@ namespace Lab04
             {
                 base.Attack(); // Call abstract class implementation
                 Mana -= 15;
-                Console.WriteLine($"?? {Name} uses mana-powered attack! Power: {GetAttackPower()}, Mana: {Mana}/{MaxMana}");
             }
             else // Low mana - weaker attack
             {
                 base.Attack();
-                Console.WriteLine($"?? {Name} attacks weakly - low mana! Mana: {Mana}/{MaxMana}");
             }
         }
 
@@ -102,12 +93,10 @@ namespace Lab04
             {
                 base.Jump(); // Call abstract class implementation
                 Mana -= 10;
-                Console.WriteLine($"?? {Name} uses mana-boosted jump! Distance: {GetJumpDistance()}, Mana: {Mana}/{MaxMana}");
             }
             else // Normal jump without mana
             {
                 base.Jump();
-                Console.WriteLine($"?? {Name} normal jump - low mana! Mana: {Mana}/{MaxMana}");
             }
         }
 

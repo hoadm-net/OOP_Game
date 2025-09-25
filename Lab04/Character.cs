@@ -196,7 +196,6 @@ namespace Lab04
             if (!isOneShotAnimation)
             {
                 SetAction("Attack", true);
-                Console.WriteLine($"{Name} ({GetCharacterType()}) attacks with power {GetAttackPower()}!");
             }
         }
 
@@ -206,7 +205,6 @@ namespace Lab04
             {
                 SetAction("Jump", true);
                 InitializeJumpPhysics();
-                Console.WriteLine($"{Name} ({GetCharacterType()}) jumps {GetJumpDistance()} pixels!");
             }
         }
 

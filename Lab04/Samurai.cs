@@ -32,11 +32,6 @@ namespace Lab04
             {
                 IsShielding = true;
                 SetAction("Shield", false); // Shield is a loop animation
-                Console.WriteLine($"??? {Name} activates samurai shield!");
-            }
-            else
-            {
-                Console.WriteLine($"? {Name} cannot use shield - insufficient energy!");
             }
         }
 
@@ -46,7 +41,6 @@ namespace Lab04
             {
                 IsShielding = false;
                 SetIdle();
-                Console.WriteLine($"?? {Name} deactivates shield!");
             }
         }
 
@@ -64,7 +58,6 @@ namespace Lab04
             }
             
             base.Attack(); // Call abstract class implementation
-            Console.WriteLine($"??? {Name} performs a powerful samurai strike!");
         }
 
         public override void Jump()
@@ -75,7 +68,6 @@ namespace Lab04
             }
             
             base.Jump(); // Call abstract class implementation
-            Console.WriteLine($"? {Name} makes a heavy samurai leap!");
         }
 
         public override void Walk()
