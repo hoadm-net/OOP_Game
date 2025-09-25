@@ -11,10 +11,16 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 - **Problem**: 300+ lines of duplicated code
 - **Goal**: Show students why inheritance is needed
 
+### Lab02 - Simple Inheritance Solution
+- **Shinobi.cs**: Enhanced base class with smart sprite loading (150+ lines)
+- **Samurai.cs**: Simple inheritance with minimal code (10 lines!)
+- **Solution**: Samurai extends Shinobi, automatic sprite loading
+- **Code Reduction**: ~90% reduction in Samurai class
+- **Goal**: Demonstrate inheritance benefits and limitations
+
 ### Future Labs
-- **Lab02**: Inheritance solution with abstract base class
-- **Lab03**: Polymorphism and virtual methods
-- **Lab04**: Interfaces for special abilities
+- **Lab03**: Abstract classes and virtual methods
+- **Lab04**: Polymorphism and interfaces for special abilities
 
 ## Features
 
@@ -38,6 +44,7 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 - **Efficient region invalidation** for performance
 - **Resource management** with proper disposal
 - **Sprite sheet animation** with frame calculation
+- **Smart sprite loading** based on class name (Lab02)
 
 ## Assets
 - **Shinobi sprites**: Ninja character animations
@@ -59,24 +66,47 @@ This project demonstrates Object-Oriented Programming (OOP) concepts using C# Wi
 - **State Management**: Animation and physics state
 - **Problem**: Massive code duplication between classes
 
+### Lab02 - Simple Inheritance
+- **Inheritance**: Samurai extends Shinobi
+- **Code Reuse**: All functionality inherited from base class
+- **Smart Loading**: Automatic sprite path resolution
+- **Polymorphism**: Basic polymorphic behavior
+- **Limitations**: Cannot override specific behaviors easily
+
 ### Learning Objectives
-1. **See the problem**: Code duplication is painful
-2. **Understand encapsulation**: Data hiding and method organization
-3. **Prepare for inheritance**: Students will want a better solution
-4. **Visual feedback**: Immediate results encourage learning
+1. **See the problem**: Code duplication is painful (Lab01)
+2. **Experience relief**: Inheritance dramatically reduces code (Lab02)
+3. **Understand limitations**: Simple inheritance has constraints
+4. **Prepare for abstraction**: Students will want more flexibility
+5. **Visual feedback**: Immediate results encourage learning
 
 ## Getting Started
 1. Open `OOP_Game.sln` in Visual Studio
-2. Build and run the project
-3. Use controls to interact with characters
-4. Press **C** to switch between characters and see identical behavior
-5. Examine code to see the duplication problem
+2. Set either Lab01 or Lab02 as startup project
+3. Build and run the project
+4. Use controls to interact with characters
+5. Press **C** to switch between characters and see behavior differences
+6. Compare code between Lab01 and Lab02 to see inheritance benefits
+
+## Code Comparison
+
+### Lab01 (Code Duplication)
+- **Shinobi.cs**: 150+ lines
+- **Samurai.cs**: 150+ lines (identical copy)
+- **Total**: 300+ lines
+
+### Lab02 (Simple Inheritance)
+- **Shinobi.cs**: 170+ lines (enhanced with smart loading)
+- **Samurai.cs**: 10 lines (simple inheritance)
+- **Total**: 180+ lines (40% reduction!)
 
 ## Educational Value
 This project makes OOP concepts **tangible and visual**:
 - Students see immediate results of their code
 - Animation provides engaging feedback
 - Code duplication creates genuine frustration
-- Sets up perfect motivation for learning inheritance
+- Inheritance provides dramatic relief
+- Progressive complexity builds understanding
+- Sets up perfect motivation for advanced OOP concepts
 
 Perfect for demonstrating why OOP principles matter in real development!
