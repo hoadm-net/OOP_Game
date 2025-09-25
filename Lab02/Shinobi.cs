@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
@@ -29,7 +29,7 @@ namespace Lab02
         private int jumpStartX, jumpStartY;
         private bool isJumping;
 
-        // Sprite management - Smart loading
+        // Smart sprite loading - the key improvement!
         private Dictionary<string, Image> sprites;
         private string characterType;
 
@@ -40,12 +40,14 @@ namespace Lab02
             X = x;
             Y = y;
             Health = 100;
+            
+            // Smart sprite loading based on class name
             characterType = this.GetType().Name; // "Shinobi" or "Samurai"
             LoadSprites();
             SetIdle();
         }
 
-        // Smart sprite loading based on character type
+        // Smart sprite loading - automatically loads sprites based on character type
         private void LoadSprites()
         {
             sprites = new Dictionary<string, Image>();
@@ -65,13 +67,13 @@ namespace Lab02
             }
         }
 
-        // Get sprite for current action
+        // Public method to get current sprite (for Form to use)
         public Image GetCurrentSprite()
         {
             return sprites.ContainsKey(CurrentAction) ? sprites[CurrentAction] : null;
         }
 
-        // Cleanup sprites
+        // Cleanup method
         public void Dispose()
         {
             if (sprites != null)

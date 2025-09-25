@@ -1,21 +1,27 @@
 using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace Lab02
 {
+    // Simple inheritance - Samurai extends Shinobi
     public class Samurai : Shinobi
     {
-        // Simple inheritance - just call base constructor
-        // Sprite loading is automatically handled by base class!
+        // Constructor - just call base constructor
         public Samurai(string name, int x, int y) : base(name, x, y)
         {
-            // Base constructor will automatically:
-            // 1. Set characterType = "Samurai" (via this.GetType().Name)
-            // 2. Load sprites from "assets/Samurai/" folder
-            // 3. Initialize all properties and states
-            
-            // That's it! All functionality inherited from Shinobi
+            // That's it! 
+            // Base class automatically:
+            // - Sets characterType = "Samurai" (via this.GetType().Name)
+            // - Loads sprites from "assets/Samurai/" folder
+            // - Initializes all properties and animation states
+            // 
+            // All methods (Walk, Run, Attack, Jump) are inherited!
+            // No code duplication needed!
         }
+        
+        // All other functionality is inherited from Shinobi:
+        // - Walk(), Run(), Attack(), Jump(), SetIdle()
+        // - UpdateAnimation(), GetCurrentSprite()
+        // - Smart sprite loading
+        // - Physics and animation system
     }
 }

@@ -12,6 +12,7 @@ namespace Lab02
 {
     public partial class Form1 : Form
     {
+        // Much simpler! Just one reference to current character
         private Shinobi currentCharacter;
         private Shinobi ninja;
         private Samurai samurai;
@@ -37,7 +38,7 @@ namespace Lab02
             ninja = new Shinobi("Shadow Ninja", 100, 200);
             samurai = new Samurai("Blade Samurai", 100, 200); // Inherits everything!
             
-            // Start with Samurai to show inheritance
+            // Start with Samurai to show inheritance working
             currentCharacter = samurai;
             UpdateLastPosition();
 
@@ -58,7 +59,7 @@ namespace Lab02
 
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
-            // Simple! Just update current character
+            // Simple! Just update current character - polymorphism at work
             currentCharacter.UpdateAnimation();
             
             // Invalidate old and new regions for efficient redraw
@@ -99,6 +100,7 @@ namespace Lab02
 
         private void DrawCharacter(Graphics graphics)
         {
+            // Get sprite from current character - inheritance handles the rest!
             var sprite = currentCharacter.GetCurrentSprite();
             if (sprite != null)
             {
@@ -131,14 +133,14 @@ namespace Lab02
                 return;
             }
 
-            // Handle actions - unified for both characters!
+            // Handle actions - unified for both characters! Polymorphism magic!
             HandleInput(e.KeyCode);
             UpdateTitle();
         }
 
         private void SwitchCharacter()
         {
-            // Switch between characters
+            // Switch between characters - polymorphism allows this!
             if (currentCharacter == ninja)
                 currentCharacter = samurai;
             else
@@ -203,7 +205,7 @@ namespace Lab02
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Cleanup resources - inheritance handles sprite disposal
+            // Cleanup resources - each character handles its own sprites
             CleanupResources();
         }
 
